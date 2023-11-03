@@ -1,15 +1,13 @@
-import sqlite3
 from pprint import pprint
 
 import sqlalchemy
 from flask import Flask, render_template, request, redirect, flash
 from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import UniqueConstraint
 from flask_wtf import FlaskForm
+from sqlalchemy import UniqueConstraint
 from wtforms import StringField, SelectField, TextAreaField, SubmitField
 from wtforms.validators import DataRequired
-
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
@@ -39,15 +37,13 @@ class BookForm(FlaskForm):
 	book_title = StringField('Book Title', validators=[DataRequired(message='Please enter the book title here.')])
 	author = StringField('Author', validators=[DataRequired(message='Please enter the book\'s author here.')])
 	abstract = TextAreaField('Abstract', validators=[DataRequired(message='Please enter the book\'s abstract here.')])
-	book_rating = SelectField('Book Rating',
-							  choices=['Rate the Book', '📙️', '📙️📙', '📙📙📙️', '📙️📙📙📙', '📙️📙📙📙📙'],
+	book_rating = SelectField('Book Rating', choices=['Rate the Book', '📙️', '📙️📙', '📙📙📙️', '📙️📙📙📙', '📙️📙📙📙📙'],
 							  validators=[DataRequired(message="Please rate the book 1-5")])
 	submit = SubmitField('Submit')
 
 
 class EditRatingForm(FlaskForm):
-	book_rating = SelectField('Book Rating',
-							  choices=[ '📙️', '📙️📙', '📙📙📙️', '📙️📙📙📙', '📙️📙📙📙📙'],
+	book_rating = SelectField('Book Rating', choices=['📙️', '📙️📙', '📙📙📙️', '📙️📙📙📙', '📙️📙📙📙📙'],
 							  validators=[DataRequired(message="Please rate the book 1-5")])
 	submit = SubmitField('Submit')
 
@@ -97,10 +93,10 @@ def add():
 		return render_template('add.html', form=form)
 
 
-@app.route("/edit/<book_id>", methods=['GET', 'POST'])
-def edit(book_id):
+@app.route("/edit", methods=['GET', 'POST'])
+def edit():
 	form = EditRatingForm()
-	book_id = book_id
+	book_id = request.args.get('id')
 	if request.method == 'GET':
 		with app.app_context():
 			book = db.session.execute(db.select(Book).where(Book.id == book_id)).scalar()

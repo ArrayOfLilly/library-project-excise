@@ -3,16 +3,16 @@
 {% block title %}Library Project - Add Book{% endblock %}
 {% block content %}
 <div class="container">
-  <div class="row">
-    <div class="col-sm-12 col-md-8">
+    <div class="row">
+        <div class="col-sm-12 col-md-8">
 
-      <h1>Add new book to the library</h1>
-        <div class="flash">
-            {% for message in get_flashed_messages() %}
+            <h1>Add new book to the library</h1>
+            <div class="flash">
+                {% for message in get_flashed_messages() %}
                 {{ message }}
-            {% endfor %}
+                {% endfor %}
 
-        </div>
+            </div>
             <!-- Bootstrap-Flask Generated Form -->
             <div class="row">
                 <div class="col-8">
@@ -20,9 +20,9 @@
                 </div>
             </div>
 
-	  <p class="space-above"><a href="{{ url_for('home') }}">See all books</a></p>
+            <p class="space-above"><a href="{{ url_for('home') }}">See all books</a></p>
 
+        </div>
     </div>
-  </div>
 </div>
 {% endblock %}
