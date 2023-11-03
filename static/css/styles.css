@@ -3,12 +3,12 @@ background-color: #bbb;
 }
 
 h1 {
-margin-bottom: 50px;
+margin: 50px 0;
 }
 
 .space-above {
-    margin-top: 20px;
-    padding-top: 20px;
+    margin-top: 10px;
+    padding-top: 10px;
 }
 
 li > p > span {
@@ -18,4 +18,13 @@ font-size: 1.5em;
 .flash {
 margin-bottom: 20px;
 color: red;
+}
+
+li a {
+font-size: 0.4em;
+color: #888;
+}
+
+.abstract {
+font-size: 0.8em;
 }

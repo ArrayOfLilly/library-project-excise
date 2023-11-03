@@ -1,20 +1,32 @@
 {% extends 'base.html' %}
 {% block title %}Library Project Home Page{% endblock %}
 {% block content %}
-<h1>My Library</h1>
 
+<div class="container">
+    <h1>My Library</h1>
 {% if books == [] %}
 <p>The Library is empty.</p>
 {% else %}
 <ul>
     {% for book in books %}
     <li>
-        <p><span><b>{{ book.title }}</b> <em>by</em> {{ book.author }},</span> (rating: {{ book.rating }}) <a href="{{ url_for('edit', book_id=book.id) }}">Edit Rating</a></p>
-
+        <div class="container">
+            <div class="row">
+                <div class="col-4"><b>{{ book.author }}</b> - {{ book.title }}</div>
+                <div class="col-2">rating: {{ book.rating }}</div>
+                <div class="col-1"><a href="{{ url_for('edit', book_id=book.id) }}">Edit Rating </a></div>
+                <div class="col-1"><a href="{{ url_for('delete', book_id=book.id) }}"> Delete Book</a></div>
+            </div>
+            <div class="row">
+                <div class="col-8 space-above abstract">{{ book.abstract }}</div>
+            </div>
+            <hr>
+        </div>
     </li>
     {% endfor %}
 </ul>
 {% endif %}
 
-<a href="{{ url_for('add') }}">Add New Book</a>
+    <p class="space-above"><a href="{{ url_for('add') }}">Add book</a></p>
+</div>
 {% endblock %}

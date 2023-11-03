@@ -7,7 +7,7 @@ from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import UniqueConstraint
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField, SubmitField
+from wtforms import StringField, SelectField, TextAreaField, SubmitField
 from wtforms.validators import DataRequired
 
 
@@ -26,6 +26,7 @@ class Book(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	title = db.Column(db.String, unique=False, nullable=False)
 	author = db.Column(db.String, unique=False, nullable=False)
+	abstract = db.Column(db.String, unique=False, nullable=False)
 	rating = db.Column(db.String, unique=False, nullable=True)
 	__table_args__ = (UniqueConstraint('title', 'author', name='edition_doesnt_matters'),)
 
@@ -37,6 +38,7 @@ with app.app_context():
 class BookForm(FlaskForm):
 	book_title = StringField('Book Title', validators=[DataRequired(message='Please enter the book title here.')])
 	author = StringField('Author', validators=[DataRequired(message='Please enter the book\'s author here.')])
+	abstract = TextAreaField('Abstract', validators=[DataRequired(message='Please enter the book\'s abstract here.')])
 	book_rating = SelectField('Book Rating',
 							  choices=['Rate the Book', '📙️', '📙️📙', '📙📙📙️', '📙️📙📙📙', '📙️📙📙📙📙'],
 							  validators=[DataRequired(message="Please rate the book 1-5")])
@@ -71,11 +73,13 @@ def add():
 		book = {
 			"title": form.book_title.data,
 			"author": form.author.data,
+			"abstract": form.abstract.data,
 			"rating": form.book_rating.data,
 		}
 		stored_book = Book(
 			title=book['title'],
 			author=book['author'],
+			abstract=book['abstract'],
 			rating=book['rating']
 		)
 		try:
@@ -110,6 +114,16 @@ def edit(book_id):
 		return redirect('../')
 	else:
 		return redirect('../')
+
+
+@app.route("/del/<book_id>", methods=['GET', 'POST'])
+def delete(book_id):
+	book_id = book_id
+	with app.app_context():
+		book = db.session.execute(db.select(Book).where(Book.id == book_id)).scalar()
+		db.session.delete(book)
+		db.session.commit()
+	return redirect('../')
 
 
 if __name__ == "__main__":
