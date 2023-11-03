@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% from 'bootstrap5/form.html' import render_form %}
+{% block title %}Library Project - Add Book{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-8">
+
+      <h1>Add a new book into the database</h1>
+        <div class="flash">
+            {% for message in get_flashed_messages() %}
+                {{ message }}
+            {% endfor %}
+
+        </div>
+            <!-- Bootstrap-Flask Generated Form -->
+            <div class="row">
+                <div class="col-4">
+                    {{ render_form(form, novalidate=True) }}
+                </div>
+            </div>
+
+	  <p class="space-above"><a href="{{ url_for('home') }}">See all books</a></p>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

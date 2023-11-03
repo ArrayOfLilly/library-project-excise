@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Library Project Home Page{% endblock %}
+{% block content %}
+<h1>My Library</h1>
+
+{% if books == [] %}
+<p>The Library is empty.</p>
+{% else %}
+<ul>
+    {% for book in books %}
+    <li>
+        <p><span><b>{{ book.title }}</b> <em>by</em> {{ book.author }},</span> (rating: {{ book.rating }}) <a href="{{ url_for('edit', book_id=book.id) }}">Edit Rating</a></p>
+
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<a href="{{ url_for('add') }}">Add New Book</a>
+{% endblock %}

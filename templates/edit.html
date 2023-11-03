@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% from 'bootstrap5/form.html' import render_form %}
+{% block title %}Library Project - Add Book{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-8">
+
+      <h1>Edit Rating</h1>
+
+            <!-- Bootstrap-Flask Generated Form -->
+            <div class="row">
+                <div class="col-4">
+                    <h3><span><b>{{ book.title }}</b> <em>by</em> {{ book.author }},</span></h3>
+                    <hr>
+                    {{ render_form(form, novalidate=True) }}
+                </div>
+            </div>
+
+	  <p class="space-above"><a href="{{ url_for('home') }}">See all books</a></p>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

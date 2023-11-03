@@ -1,0 +1,21 @@
+body {
+background-color: #bbb;
+}
+
+h1 {
+margin-bottom: 50px;
+}
+
+.space-above {
+    margin-top: 20px;
+    padding-top: 20px;
+}
+
+li > p > span {
+font-size: 1.5em;
+}
+
+.flash {
+margin-bottom: 20px;
+color: red;
+}
